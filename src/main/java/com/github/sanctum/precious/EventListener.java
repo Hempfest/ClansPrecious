@@ -1,12 +1,13 @@
 package com.github.sanctum.precious;
 
+import com.github.sanctum.clans.construct.Claim;
+import com.github.sanctum.clans.construct.ClanAssociate;
+import com.github.sanctum.clans.construct.DefaultClan;
+import com.github.sanctum.clans.construct.api.Clan;
+import com.github.sanctum.clans.construct.api.ClansAPI;
+import com.github.sanctum.clans.util.events.clans.LandPreClaimEvent;
 import com.github.sanctum.labyrinth.library.Cooldown;
 import com.github.sanctum.labyrinth.task.Schedule;
-import com.youtube.hempfest.clans.construct.Claim;
-import com.youtube.hempfest.clans.construct.Clan;
-import com.youtube.hempfest.clans.construct.ClanAssociate;
-import com.youtube.hempfest.clans.construct.api.ClansAPI;
-import com.youtube.hempfest.clans.util.events.clans.LandPreClaimEvent;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,8 +30,8 @@ public class EventListener implements Listener {
 
 	static {
 		Schedule.sync(() -> {
-			for (Clan c : ClansAPI.getData().clans) {
-				Cooldown test = Cooldown.getById(FieldTimerKey.CLAN.invoke(c.getClanId().toString()));
+			for (Clan c : ClansAPI.getData().CLANS) {
+				Cooldown test = Cooldown.getById(FieldTimerKey.CLAN.invoke(c.getId().toString()));
 				if (test != null) {
 					if (test.isComplete() || (test.getMinutesLeft() == 0 && test.getSecondsLeft() == 0)) {
 						Cooldown.remove(test);
@@ -57,18 +58,18 @@ public class EventListener implements Listener {
 					if (!precious.getFieldsProtectingArea(FieldFlag.ALL, e.getBlock().getLocation()).get(0).getOwner().equals(e.getPlayer().getName())) {
 						if (!precious.getFieldsProtectingArea(FieldFlag.ALL, e.getBlock().getLocation()).get(0).getAllowed().contains(e.getPlayer().getName())) {
 							Field field = PreciousStones.getInstance().getForceFieldManager().getEnabledSourceField(e.getBlock().getLocation(), FieldFlag.ALL);
-							UUID owner = Clan.action.getUserID(field.getOwner());
+							UUID owner = DefaultClan.action.getUserID(field.getOwner());
 							ClanAssociate associate2 = ClansAPI.getInstance().getAssociate(owner).orElse(null);
 							if (!e.getPlayer().isSneaking())
 								return;
 							if (associate2 != null && associate2.isValid()) {
-								if (associate.getClan().getEnemies().contains(associate2.getClanID().toString())) {
-									Cooldown test = Cooldown.getById(FieldTimerKey.CLAN.invoke(associate.getClan().getClanId().toString()));
+								if (associate.getClan().getEnemyList().contains(associate2.getClanID().toString())) {
+									Cooldown test = Cooldown.getById(FieldTimerKey.CLAN.invoke(associate.getClan().getId().toString()));
 									if (test != null && !test.isComplete()) {
 										return;
 									}
 									int count = 0;
-									for (String id : associate2.getClan().getMembers()) {
+									for (String id : associate2.getClan().getMembersList()) {
 										UUID uuid = UUID.fromString(id);
 										OfflinePlayer target = Bukkit.getOfflinePlayer(uuid);
 										if (target.isOnline()) {
@@ -76,7 +77,7 @@ public class EventListener implements Listener {
 										}
 									}
 									if (count < EventLink.getSettings().getConfig().getInt("Options.field-requirement")) {
-										Clan.action.sendMessage(e.getPlayer(), EventLink.getSettings().getConfig().getString("Messages.invalid-request"));
+										DefaultClan.action.sendMessage(e.getPlayer(), EventLink.getSettings().getConfig().getString("Messages.invalid-request"));
 										return;
 									}
 									field.getFlagsModule().addFlag(FieldFlag.BREAKABLE_ON_DISABLED);

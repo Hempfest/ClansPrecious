@@ -1,8 +1,8 @@
 package com.github.sanctum.precious;
 
+import com.github.sanctum.clans.construct.api.Clan;
 import com.github.sanctum.labyrinth.library.Cooldown;
 import com.github.sanctum.labyrinth.library.HUID;
-import com.youtube.hempfest.clans.construct.Clan;
 
 public class FieldTimer extends Cooldown {
 
@@ -10,7 +10,7 @@ public class FieldTimer extends Cooldown {
 	private final long time;
 
 	public FieldTimer(Clan c) {
-		this.id = c.getClanId();
+		this.id = c.getId();
 		this.time = abv(60);
 	}
 

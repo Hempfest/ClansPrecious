@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.sanctum</groupId>
-    <artifactId>ClansStands</artifactId>
-    <version>1.0.0</version>
+    <artifactId>ClansPrecious</artifactId>
+    <version>1.0.4</version>
     <packaging>jar</packaging>
 
     <name>ClansStands</name>
@@ -80,9 +80,14 @@
             <version>1.15.2</version>
         </dependency>
         <dependency>
-            <groupId>com.github.Hempfest</groupId>
-            <artifactId>ClansAPI</artifactId>
-            <version>1.8</version>
+            <groupId>com.github.the-h-team</groupId>
+            <artifactId>Labyrinth</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.the-h-team</groupId>
+            <artifactId>ClansPro</artifactId>
+            <version>2.2</version>
         </dependency>
     </dependencies>
 </project>

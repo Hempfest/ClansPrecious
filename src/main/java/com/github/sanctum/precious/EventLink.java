@@ -1,12 +1,9 @@
 package com.github.sanctum.precious;
 
+import com.github.sanctum.clans.construct.api.ClansAPI;
 import com.github.sanctum.labyrinth.data.FileManager;
-import com.youtube.hempfest.clans.construct.api.ClansAPI;
-import com.youtube.hempfest.link.EventCycle;
-import java.util.Collection;
-import java.util.Collections;
+import com.github.sanctum.link.EventCycle;
 import org.bukkit.Bukkit;
-import org.bukkit.event.Listener;
 
 public class EventLink extends EventCycle {
 
@@ -16,31 +13,32 @@ public class EventLink extends EventCycle {
 	}
 
 	@Override
-	public EventCycle getInstance() {
-		return this;
-	}
-
-	@Override
-	public String getAddonName() {
+	public String getName() {
 		return "PreciousHook";
 	}
 
 	@Override
-	public String getAddonDescription() {
+	public String getDescription() {
 		return "Disallows non rivaled clans from messing with your fields.";
 	}
 
 	@Override
-	public Collection<Listener> getAdditions() {
-		return Collections.singletonList(new EventListener());
-	}
-
-	public static FileManager getSettings() {
-		return ClansAPI.getInstance().getFileList().find("Precious", "Configuration/Addon");
+	public String getVersion() {
+		return "1.0";
 	}
 
 	@Override
-	public void setAdditions() {
+	public String[] getAuthors() {
+		return new String[]{"Hempfest"};
+	}
+
+	public static FileManager getSettings() {
+		return ClansAPI.getInstance().getFileList().find("Precious", "Addons/ClansPrecious");
+	}
+
+	@Override
+	public void onLoad() {
+		register(new EventListener());
 		FileManager precious = getSettings();
 		if (!precious.exists()) {
 			precious.getConfig().set("Options.field-timer", 60);
@@ -50,5 +48,15 @@ public class EventLink extends EventCycle {
 			precious.getConfig().set("Messages.invalid-request", "&cThis clan doesn't have enough member's online");
 			precious.saveConfig();
 		}
+	}
+
+	@Override
+	public void onEnable() {
+
+	}
+
+	@Override
+	public void onDisable() {
+
 	}
 }

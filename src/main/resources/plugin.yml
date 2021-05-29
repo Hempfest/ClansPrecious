@@ -1,5 +1,0 @@
-name: PreciousHook
-version: ${project.version}
-main: com.github.sanctum.precious.PreciousHook
-api-version: 1.13
-depend: [ ClansPro, PreciousStones ]
