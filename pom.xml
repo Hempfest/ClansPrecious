@@ -6,7 +6,7 @@
 
     <groupId>com.github.sanctum</groupId>
     <artifactId>ClansPrecious</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <packaging>jar</packaging>
 
     <name>ClansStands</name>
@@ -87,7 +87,7 @@
         <dependency>
             <groupId>com.github.the-h-team</groupId>
             <artifactId>ClansPro</artifactId>
-            <version>2.2</version>
+            <version>1.2.8_R1</version>
         </dependency>
     </dependencies>
 </project>

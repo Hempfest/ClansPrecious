@@ -3,13 +3,12 @@ package com.github.sanctum.precious;
 import com.github.sanctum.clans.construct.api.ClansAPI;
 import com.github.sanctum.labyrinth.data.FileManager;
 import com.github.sanctum.link.EventCycle;
-import org.bukkit.Bukkit;
 
 public class EventLink extends EventCycle {
 
 	@Override
 	public boolean persist() {
-		return Bukkit.getPluginManager().isPluginEnabled("PreciousStones");
+		return true;
 	}
 
 	@Override
@@ -24,7 +23,7 @@ public class EventLink extends EventCycle {
 
 	@Override
 	public String getVersion() {
-		return "1.0";
+		return "1.0.5";
 	}
 
 	@Override
